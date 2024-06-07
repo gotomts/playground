@@ -1,0 +1,21 @@
+name: Repository Dispatch
+
+on:
+  repository_dispatch:
+    types: [my_event]
+
+jobs:
+  exec:
+    name: Execute
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo env
+        env:
+          APP_TEST_ONE: ${{ github.event.client_payload.test_one }}
+          APP_TEST_TWO: ${{ github.event.client_payload.test_two }}
+          APP_TEST_THREE: ${{ github.event.client_payload.test_three }}
+        run: |
+          echo "APP_TEST_ONE: $APP_TEST_ONE"
+          echo "APP_TEST_TWO: $APP_TEST_TWO"
+          echo "APP_TEST_THREE: $APP_TEST_THREE"
